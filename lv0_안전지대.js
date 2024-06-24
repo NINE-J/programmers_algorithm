@@ -40,3 +40,21 @@ let test3 = [[1, 1, 1, 1, 1, 1], [1, 1, 1, 1, 1, 1], [1, 1, 1, 1, 1, 1], [1, 1, 
 console.log(solution(test1))
 console.log(solution(test2))
 console.log(solution(test3))
+
+
+//정답 후 다른 사람의 풀이
+//지뢰에 포커싱하지 않고 현지역 근처에 지뢰가 있는지 판별하는 방식
+//Optional chaning, Double NOT으로 간결하게 표현
+function solution(board) {
+
+  let outside = [[-1,0], [-1,-1], [-1,1], [0,-1],[0,1],[1,0], [1,-1], [1,1]];
+  let safezone = 0;
+
+  board.forEach((row, y, self) => row.forEach((it, x) => {
+      if (it === 1) return false;
+      return outside.some(([oy, ox]) => !!self[oy + y]?.[ox + x])
+        ? false : safezone++;
+  }));
+
+  return safezone;
+}
